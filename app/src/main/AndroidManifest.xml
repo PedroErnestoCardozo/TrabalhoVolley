@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.trabalhosrobson.trabalhovolley">
 
+    <uses-sdk android:minSdkVersion="11"
+    android:targetSdkVersion="11"/>
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
