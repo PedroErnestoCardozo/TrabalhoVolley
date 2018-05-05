@@ -8,10 +8,9 @@ import android.graphics.Bitmap;
 
 public class UsuarioConst {
 
-    String nome, sobrenome, email;
-    Bitmap img;
+    String nome, sobrenome, email,img;
 
-    public UsuarioConst(String nome, String sobrenome, String email, Bitmap img) {
+    public UsuarioConst(String nome, String sobrenome, String email, String img) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
@@ -30,7 +29,7 @@ public class UsuarioConst {
         return email;
     }
 
-    public Bitmap getImg() {
+    public String getImg() {
         return img;
     }
 }
