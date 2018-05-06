@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.trabalhosrobson.trabalhovolley.CadastroUsuarios">
+    android:orientation="vertical"
+    tools:context="com.trabalhosrobson.trabalhovolley.CadastroUsuarios"
+    android:padding="20dp">
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Nome"
+        android:id="@+id/nome"/>
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Sobrenome"
+        android:id="@+id/sobrenome"/>
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="E-mail"
+        android:id="@+id/email"/>
+
+
+    <Button
+        android:id="@+id/btnImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecionar img"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="176dp" />
+
+
+    <Button
+        android:id="@+id/btnCad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar"
+        android:onClick="cadastrarImg"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="176dp" />
+
+    <ImageView
+        android:id="@+id/imgSelecionada"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
