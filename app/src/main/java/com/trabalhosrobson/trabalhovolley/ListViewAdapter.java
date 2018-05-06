@@ -128,7 +128,7 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
                     }
                 }
         );
-        
+
         requestQueue.add(imageRequest);
 
         return listViewItem;
