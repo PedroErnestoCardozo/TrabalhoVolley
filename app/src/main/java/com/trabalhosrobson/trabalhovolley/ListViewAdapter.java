@@ -1,6 +1,8 @@
 package com.trabalhosrobson.trabalhovolley;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,14 +94,42 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
 
         TextView txtNome = listViewItem.findViewById(R.id.txtNome);
         TextView txtEmail = listViewItem.findViewById(R.id.txtEmail);
-        ImageView img = listViewItem.findViewById(R.id.img);
+        final ImageView img = listViewItem.findViewById(R.id.img);
 
 
         UsuarioConst usuarioConst = userList.get(position);
 
         txtNome.setText(usuarioConst.getNome() + " " +usuarioConst.getSobrenome());
         txtEmail.setText(usuarioConst.getEmail());
-        //img.setImageBitmap(usuarioConst.getImg());
+        String link = usuarioConst.getImg();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(mCtx);
+
+        // Initialize a new ImageRequest
+        ImageRequest imageRequest = new ImageRequest(
+                link, // Image URL
+                new Response.Listener<Bitmap>() { // Bitmap listener
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        // Do something with response
+                        img.setImageBitmap(response);
+
+                    }
+                },
+                0, // Image width
+                0, // Image height
+                ImageView.ScaleType.CENTER_CROP, // Image scale type
+                Bitmap.Config.RGB_565, //Image decode configuration
+                new Response.ErrorListener() { // Error listener
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Do something with error response
+                        error.printStackTrace();
+                    }
+                }
+        );
+        
+        requestQueue.add(imageRequest);
 
         return listViewItem;
     }
