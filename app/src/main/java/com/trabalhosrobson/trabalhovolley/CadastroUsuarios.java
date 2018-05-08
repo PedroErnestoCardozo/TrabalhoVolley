@@ -59,6 +59,8 @@ public class CadastroUsuarios extends AppCompatActivity {
         btnFotos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Inicialização da intent para poder selecionar uma foto
+
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto, CODE_REQ);
@@ -68,6 +70,7 @@ public class CadastroUsuarios extends AppCompatActivity {
         });
     }
 
+    //Metodo que é executado ao selecionar a imagem.
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && resultCode == Activity.RESULT_OK && requestCode == CODE_REQ) {
@@ -75,11 +78,11 @@ public class CadastroUsuarios extends AppCompatActivity {
 
             try {
                 photoBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),photoData);
+                photoView.setImageBitmap(photoBitmap);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println(e.getMessage());
             }
-            photoView.setImageBitmap(photoBitmap);
         }
 
 
@@ -89,18 +92,11 @@ public class CadastroUsuarios extends AppCompatActivity {
     public void cadastrarImg(View view) {
         progressDialog.setMessage("Cadastrando");
         progressDialog.show();
-        // Creating string request with post method.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String ServerResponse) {
-                        //Toast.makeText(cad_crianca.this, ServerResponse, Toast.LENGTH_LONG).show();
-                        System.out.println(ServerResponse);
-                        Toast.makeText(CadastroUsuarios.this, ServerResponse, Toast.LENGTH_LONG).show();
-                        // Hiding the progress dialog after all task complete.
                         progressDialog.dismiss();
-
-                        // Showing response message coming from server.
                         Toast.makeText(CadastroUsuarios.this, "Cadastrado!", Toast.LENGTH_SHORT).show();
                         Intent tela = new Intent(CadastroUsuarios.this, MainActivity.class);
                         startActivity(tela);

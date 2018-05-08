@@ -44,6 +44,7 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
         this.mCtx = mCtx;
     }
 
+    //Metodo que traz que traz o tamanho da lista
     @Override
     public int getCount() {
         return userList.size();
@@ -105,25 +106,23 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
 
         RequestQueue requestQueue = Volley.newRequestQueue(mCtx);
 
-        // Initialize a new ImageRequest
+        // Iniciando um ImageRequest
         ImageRequest imageRequest = new ImageRequest(
-                link, // Image URL
-                new Response.Listener<Bitmap>() { // Bitmap listener
+                link, // URL da imagem
+                new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
-                        // Do something with response
                         img.setImageBitmap(response);
 
                     }
                 },
-                0, // Image width
-                0, // Image height
-                ImageView.ScaleType.CENTER_CROP, // Image scale type
-                Bitmap.Config.RGB_565, //Image decode configuration
+                0, // Img width
+                0, // Img height
+                ImageView.ScaleType.CENTER_CROP,
+                Bitmap.Config.RGB_565, //configurações de decode
                 new Response.ErrorListener() { // Error listener
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Do something with error response
                         error.printStackTrace();
                     }
                 }

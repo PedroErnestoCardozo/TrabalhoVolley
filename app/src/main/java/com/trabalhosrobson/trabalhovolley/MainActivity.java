@@ -42,22 +42,21 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         requestQueue = Volley.newRequestQueue(this);
         progressDialog = new ProgressDialog(MainActivity.this);
-
 
         listView = findViewById(R.id.listView);
         searchView = findViewById(R.id.barra_pesquisa);
         usuarioList = new ArrayList<>();
-        PuxarDados();
+        PuxarDados();//metodo que traz o json do banco ja preenche o listview
         listView.setTextFilterEnabled(true);
-        setupSearchView();
-
+        setupSearchView();//inicia o metodo de configurações da searchview
     }
 
     private void setupSearchView() {
         searchView.setIconifiedByDefault(false);
-        searchView.setOnQueryTextListener(this);
+        searchView.setOnQueryTextListener(this);//passagem do contexto para usar o searchview
         searchView.setSubmitButtonEnabled(true);
         searchView.setQueryHint("Pesquisar...");
     }
@@ -68,16 +67,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     private void PuxarDados() {
-        // Showing progress dialog at user registration time.
         progressDialog.setMessage("Carregando dados");
         progressDialog.show();
 
-        // Creating string request with post method.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Hiding the progress dialog after all task complete.
                         progressDialog.dismiss();
 
                         try {
@@ -102,11 +98,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-
-                        // Hiding the progress dialog after all task complete.
                         progressDialog.dismiss();
-
-                        // Showing error message if something goes wrong.
                         Toast.makeText(MainActivity.this, volleyError.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
