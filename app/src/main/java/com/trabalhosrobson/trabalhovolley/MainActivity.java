@@ -31,6 +31,15 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
+    /**
+     * Trabalho apresentado a unidade curricular de PRA
+     * Alunos:
+     * Mateus Andreatta
+     * Felipe Moreira
+     * Julia Louback
+     * Pedro Ernesto
+     * */
+
     private static String JSON_URL = "https://sistemagte.xyz/android/trabRobson/listar.php";
     ListView listView;
     List<UsuarioConst> usuarioList;
@@ -50,12 +59,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         searchView = findViewById(R.id.barra_pesquisa);
         usuarioList = new ArrayList<>();
         PuxarDados();//metodo que traz o json do banco ja preenche o listview
-        listView.setTextFilterEnabled(true);
+        listView.setTextFilterEnabled(true);//filtro pré-definido
         setupSearchView();//inicia o metodo de configurações da searchview
     }
 
     private void setupSearchView() {
-        searchView.setIconifiedByDefault(false);
+        searchView.setIconifiedByDefault(false);// definir se seria usado o icone ou o campo inteiro
         searchView.setOnQueryTextListener(this);//passagem do contexto para usar o searchview
         searchView.setSubmitButtonEnabled(true);
         searchView.setQueryHint("Pesquisar...");
@@ -108,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     @Override
-    public boolean onQueryTextChange(String newText){
+    public boolean onQueryTextChange(String newText){//onkeyup do java
         if (TextUtils.isEmpty(newText)) {
             listView.clearTextFilter();
         } else {

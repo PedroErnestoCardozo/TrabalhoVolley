@@ -49,7 +49,7 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
     public int getCount() {
         return userList.size();
     }
-
+    //Ultilização da classe Filter do android
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -62,8 +62,10 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
                 }
                 if (constraint != null) {
                     constraint = constraint.toString().toLowerCase();
+                    //verifica se temos algo na lista original
                     if (orig != null && orig.size() > 0) {
-                        for (final UsuarioConst g : orig) {
+                        //para cada obj do UsuarioConst dentro lista
+                        for (final UsuarioConst g : orig) {//Ocorerá para cada usuario que está na lista
                             if ((g.getNome().toLowerCase().contains(constraint.toString())) ||
                                     (g.getSobrenome().toLowerCase().contains(constraint.toString())) ||
                                     g.getEmail().toLowerCase().contains(constraint.toString())) {
@@ -113,7 +115,6 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
                     @Override
                     public void onResponse(Bitmap response) {
                         img.setImageBitmap(response);
-
                     }
                 },
                 0, // Img width

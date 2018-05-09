@@ -60,11 +60,9 @@ public class CadastroUsuarios extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Inicialização da intent para poder selecionar uma foto
-
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto, CODE_REQ);
-
             }
 
         });
@@ -84,10 +82,7 @@ public class CadastroUsuarios extends AppCompatActivity {
                 System.out.println(e.getMessage());
             }
         }
-
-
     }
-
 
     public void cadastrarImg(View view) {
         progressDialog.setMessage("Cadastrando");
@@ -96,7 +91,7 @@ public class CadastroUsuarios extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String ServerResponse) {
-                        progressDialog.dismiss();
+                        progressDialog.dismiss();// remove feedback de cadastrado
                         Toast.makeText(CadastroUsuarios.this, "Cadastrado!", Toast.LENGTH_SHORT).show();
                         Intent tela = new Intent(CadastroUsuarios.this, MainActivity.class);
                         startActivity(tela);
@@ -123,7 +118,6 @@ public class CadastroUsuarios extends AppCompatActivity {
 
                 return params;
             }
-
         };
 
         requestQueue.getCache().clear();
@@ -131,11 +125,9 @@ public class CadastroUsuarios extends AppCompatActivity {
     }
 
     private String imageToString(Bitmap bitmap){
-
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] imgBytes = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(imgBytes, Base64.DEFAULT);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);//comprime em JPEG
+        byte[] imgBytes = byteArrayOutputStream.toByteArray();//Transforma em um array de bytes
+        return Base64.encodeToString(imgBytes, Base64.DEFAULT);//nosso array leva um encode para base64m q é retornado como parametro para a webservice
     }
-
 }
