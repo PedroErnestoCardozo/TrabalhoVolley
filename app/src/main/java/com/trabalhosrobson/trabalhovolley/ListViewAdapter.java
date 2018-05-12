@@ -57,7 +57,7 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
             protected FilterResults performFiltering(CharSequence constraint) {
                 final FilterResults oReturn = new FilterResults();
                 final ArrayList<UsuarioConst> results = new ArrayList<UsuarioConst>();
-                if (orig == null) {
+                if (orig == null) {//verificando se a
                     orig = userList;
                 }
                 if (constraint != null) {
@@ -66,6 +66,10 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
                     if (orig != null && orig.size() > 0) {
                         //para cada obj do UsuarioConst dentro lista
                         for (final UsuarioConst g : orig) {//Ocorerá para cada usuario que está na lista
+                            /*
+                            * Transformando o nome, sobrenome e email do usuario em minuscula
+                            * e depois conferindo se ele contem na nossa restrição (constraint)
+                            * */
                             if ((g.getNome().toLowerCase().contains(constraint.toString())) ||
                                     (g.getSobrenome().toLowerCase().contains(constraint.toString())) ||
                                     g.getEmail().toLowerCase().contains(constraint.toString())) {
@@ -91,15 +95,15 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
 
+        //dando inflate em nosso list_view assim transformamos ele em um objeto, para poder manipula-lo
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-
         View listViewItem = inflater.inflate(R.layout.list_view, null, true);
 
         TextView txtNome = listViewItem.findViewById(R.id.txtNome);
         TextView txtEmail = listViewItem.findViewById(R.id.txtEmail);
         final ImageView img = listViewItem.findViewById(R.id.img);
 
-
+        //Instanciando o usuario
         UsuarioConst usuarioConst = userList.get(position);
 
         txtNome.setText(usuarioConst.getNome() + " " +usuarioConst.getSobrenome());
@@ -119,7 +123,7 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
                 },
                 0, // Img width
                 0, // Img height
-                ImageView.ScaleType.CENTER_CROP,
+                ImageView.ScaleType.CENTER_CROP,//definindo o corte da img
                 Bitmap.Config.RGB_565, //configurações de decode
                 new Response.ErrorListener() { // Error listener
                     @Override
@@ -129,7 +133,7 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
                 }
         );
 
-        requestQueue.add(imageRequest);
+        requestQueue.add(imageRequest);//adicionando nosso request a fila
 
         return listViewItem;
     }
