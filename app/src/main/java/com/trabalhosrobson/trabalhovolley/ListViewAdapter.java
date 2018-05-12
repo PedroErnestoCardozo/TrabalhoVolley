@@ -44,11 +44,12 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
         this.mCtx = mCtx;
     }
 
+    //Metodo que traz que traz o tamanho da lista
     @Override
     public int getCount() {
         return userList.size();
     }
-
+    //Ultilização da classe Filter do android
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -61,8 +62,10 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
                 }
                 if (constraint != null) {
                     constraint = constraint.toString().toLowerCase();
+                    //verifica se temos algo na lista original
                     if (orig != null && orig.size() > 0) {
-                        for (final UsuarioConst g : orig) {
+                        //para cada obj do UsuarioConst dentro lista
+                        for (final UsuarioConst g : orig) {//Ocorerá para cada usuario que está na lista
                             if ((g.getNome().toLowerCase().contains(constraint.toString())) ||
                                     (g.getSobrenome().toLowerCase().contains(constraint.toString())) ||
                                     g.getEmail().toLowerCase().contains(constraint.toString())) {
@@ -105,25 +108,22 @@ public class ListViewAdapter extends ArrayAdapter<UsuarioConst> {
 
         RequestQueue requestQueue = Volley.newRequestQueue(mCtx);
 
-        // Initialize a new ImageRequest
+        // Iniciando um ImageRequest
         ImageRequest imageRequest = new ImageRequest(
-                link, // Image URL
-                new Response.Listener<Bitmap>() { // Bitmap listener
+                link, // URL da imagem
+                new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
-                        // Do something with response
                         img.setImageBitmap(response);
-
                     }
                 },
-                0, // Image width
-                0, // Image height
-                ImageView.ScaleType.CENTER_CROP, // Image scale type
-                Bitmap.Config.RGB_565, //Image decode configuration
+                0, // Img width
+                0, // Img height
+                ImageView.ScaleType.CENTER_CROP,
+                Bitmap.Config.RGB_565, //configurações de decode
                 new Response.ErrorListener() { // Error listener
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Do something with error response
                         error.printStackTrace();
                     }
                 }

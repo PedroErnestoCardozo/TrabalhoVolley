@@ -16,7 +16,6 @@ public class UsuarioConst {
         this.email = email;
         this.img = img;
     }
-
     public String getNome() {
         return nome;
     }
@@ -33,3 +32,4 @@ public class UsuarioConst {
         return img;
     }
 }
+//

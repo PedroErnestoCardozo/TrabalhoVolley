@@ -31,6 +31,15 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
+    /**
+     * Trabalho apresentado a unidade curricular de PRA
+     * Alunos:
+     * Mateus Andreatta
+     * Felipe Moreira
+     * Julia Louback
+     * Pedro Ernesto
+     * */
+
     private static String JSON_URL = "https://sistemagte.xyz/android/trabRobson/listar.php";
     ListView listView;
     List<UsuarioConst> usuarioList;
@@ -42,22 +51,21 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         requestQueue = Volley.newRequestQueue(this);
         progressDialog = new ProgressDialog(MainActivity.this);
-
 
         listView = findViewById(R.id.listView);
         searchView = findViewById(R.id.barra_pesquisa);
         usuarioList = new ArrayList<>();
-        PuxarDados();
-        listView.setTextFilterEnabled(true);
-        setupSearchView();
-
+        PuxarDados();//metodo que traz o json do banco ja preenche o listview
+        listView.setTextFilterEnabled(true);//filtro pré-definido
+        setupSearchView();//inicia o metodo de configurações da searchview
     }
 
     private void setupSearchView() {
-        searchView.setIconifiedByDefault(false);
-        searchView.setOnQueryTextListener(this);
+        searchView.setIconifiedByDefault(false);// definir se seria usado o icone ou o campo inteiro
+        searchView.setOnQueryTextListener(this);//passagem do contexto para usar o searchview
         searchView.setSubmitButtonEnabled(true);
         searchView.setQueryHint("Pesquisar...");
     }
@@ -68,16 +76,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     private void PuxarDados() {
-        // Showing progress dialog at user registration time.
         progressDialog.setMessage("Carregando dados");
         progressDialog.show();
 
-        // Creating string request with post method.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Hiding the progress dialog after all task complete.
                         progressDialog.dismiss();
 
                         try {
@@ -102,11 +107,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-
-                        // Hiding the progress dialog after all task complete.
                         progressDialog.dismiss();
-
-                        // Showing error message if something goes wrong.
                         Toast.makeText(MainActivity.this, volleyError.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     @Override
-    public boolean onQueryTextChange(String newText){
+    public boolean onQueryTextChange(String newText){//onkeyup do java
         if (TextUtils.isEmpty(newText)) {
             listView.clearTextFilter();
         } else {
